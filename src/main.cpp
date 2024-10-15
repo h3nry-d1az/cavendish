@@ -1,7 +1,13 @@
+#include <cstdio>
 #include <SFML/Graphics.hpp>
+#include <R2.hpp>
 
 int main()
 {
+    R2 my_vec(1, 2);
+    R2 my_other_vec(5, -1);
+    printf("%f", my_vec*my_other_vec);
+    printf("%f", abs(my_vec));
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);

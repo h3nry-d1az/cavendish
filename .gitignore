@@ -5,4 +5,4 @@ bin/
 lib/
 
 # SFML headers
-include/
+include/SFML/
