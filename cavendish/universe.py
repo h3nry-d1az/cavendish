@@ -1,5 +1,6 @@
 from typing import List
 from functools import reduce
+import tkinter as tk
 import pygame
 
 from .entity import Entity, R2
@@ -12,29 +13,51 @@ class Universe:
     __clock: pygame.time.Clock
     __font: pygame.font.Font
 
+    __language: str
+    __settings: bool
+
+    __panel: tk.Tk
+
     camera: R2
     scaling: float = 1
     G: float
     entities: List[Entity]
 
-    def __init__(self, *entities, G=6.67430) -> None:
+    def __init__(self, *entities, G=6.67430, language='English', settings=True) -> None:
         self.__screen = pygame.display.set_mode((640, 480))
         pygame.init()
         self.__clock = pygame.time.Clock()
         self.__font = pygame.font.Font(size=22)
         self.camera = R2.Zero()
-        pygame.display.set_caption('Cavendish: Yet another gravitational physics simulator')
+        match language:
+            case 'English':
+                pygame.display.set_caption('Cavendish: Yet another gravitational physics simulator')
+            case 'Español':
+                pygame.display.set_caption('Cavendish: Otro simulador más de físicas gravitatorias')
+
         pygame.display.set_icon(pygame.image.load('./assets/favicon-main.ico'))
-        
+
+        if settings:
+            self.__panel = tk.Tk()
+            self.__panel.title('Settings panel')
+            self.__panel.geometry('256x256+154+175')
+            self.__panel.resizable(False, False)
+            self.__panel.iconbitmap('./assets/favicon.ico')
+
         self.G = G
         self.entities = []
         for entity in entities:
             self.entities.append(entity)
 
+        self.__language = language
+        self.__settings = settings
+
     def execute(self) -> None:
         self.__active = True
         while self.__active:
             self.process(self.__clock.tick(60))
+            if self.__settings:
+                self.__panel.update()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

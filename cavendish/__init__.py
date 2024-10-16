@@ -14,5 +14,5 @@ def main(language: str, settings: bool) -> None:
     mass3 = Entity(10, R2(randrange(-150, 150), randrange(-150, 150)))
     mass3.velocity = R2(-5e-2, 1e-1)
 
-    my_universe = Universe(mass1, mass2, mass3)
+    my_universe = Universe(mass1, mass2, mass3, language=language, settings=settings)
     my_universe.execute()
