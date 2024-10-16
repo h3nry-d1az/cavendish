@@ -2,8 +2,8 @@ from typing import Tuple, List
 from random import randrange
 import pygame
 
-from r2 import R2
-from shared import cartesian_to_pygame
+from .r2 import R2
+from .shared import cartesian_to_pygame
 
 
 class Entity(object):

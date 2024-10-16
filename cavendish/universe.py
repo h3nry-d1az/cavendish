@@ -2,8 +2,8 @@ from typing import List
 from functools import reduce
 import pygame
 
-from entity import Entity, R2
-from shared import pygame_to_cartesian
+from .entity import Entity, R2
+from .shared import pygame_to_cartesian
 
 
 class Universe:
@@ -23,7 +23,8 @@ class Universe:
         self.__clock = pygame.time.Clock()
         self.__font = pygame.font.Font(size=22)
         self.camera = R2.Zero()
-        pygame.display.set_caption('Cavendish Spatial Physics Engine')
+        pygame.display.set_caption('Cavendish: Yet another gravitational physics simulator')
+        pygame.display.set_icon(pygame.image.load('./assets/favicon-main.ico'))
         
         self.G = G
         self.entities = []
@@ -64,18 +65,27 @@ class Universe:
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse = pygame_to_cartesian(*pygame.mouse.get_pos(), self.scaling)
-                    self.entities.append(Entity(10, R2(mouse[0], mouse[1]) + self.camera))
+                    position = R2(mouse[0], mouse[1]) + self.camera
+                    match pygame.mouse.get_pressed():
+                        case (False, False, True):
+                            for entity in self.entities:
+                                if abs(entity.position - position) <= entity.mass:
+                                    self.entities.remove(entity)
+                        case _:
+                            self.entities.append(Entity(10, position))
 
     def process(self, delta) -> None:
         self.__screen.fill(pygame.Color(0, 0, 0))
 
         for entity in self.entities:
-            a = reduce(
-                lambda v1, v2: v1 + v2,
-                (e.g(entity, self.G) for e in self.entities if e != entity)
-            )
-            if a == 0:
-                a = R2(0, 0)
+            try:
+                a = reduce(
+                    lambda v1, v2: v1 + v2,
+                    (e.g(entity, self.G) for e in self.entities if e != entity)
+                )
+            except TypeError:
+                a = R2.Zero()
+
             entity.velocity += a*delta
             entity.position += entity.velocity*delta
             entity.render(self.__screen, self.camera, self.scaling)
