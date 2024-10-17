@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: cavendish
+abstract: Yet another gravitational physics simulator
+authors:
+- family-names: "Díaz Bordón"
+  given-names: "Henry"
+  email: henrydiazbordon@gmail.com
+version: 0.1.0
+date-released: 2024-10-17
+license: CC-BY-SA-4.0
+url: "https://github.com/h3nry-d1az/cavendish"
