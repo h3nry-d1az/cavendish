@@ -2,6 +2,7 @@ from typing import List
 from functools import reduce
 import tkinter as tk
 from tkinter import ttk
+from sys import exit
 import pygame
 
 from .entity import Entity, R2
