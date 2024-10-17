@@ -37,11 +37,19 @@ class Entity(object):
             norm = 5e2
         return r * (-G*self.mass/norm**3)
 
-    def render(self, screen, camera: R2, scaling: float) -> None:
-        self.__trace.append((self.position.x, self.position.y))
+    def render(
+            self,
+            screen: pygame.Surface,
+            camera: R2,
+            scaling: float,
+            active: bool,
+            trail_length: int
+        ) -> None:
+        if active:
+            self.__trace.append((self.position.x, self.position.y))
 
-        if len(self.__trace) > 100:
-            self.__trace.pop(0)
+            while len(self.__trace) > trail_length:
+                self.__trace.pop(0)
 
         for point in self.__trace:
             pygame.draw.circle(
