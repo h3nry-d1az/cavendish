@@ -41,6 +41,37 @@ make
 
 Your fresh, newly-compiled binaries will be available at `dist/cavendish`.
 
+# Controls
+<table><thead>
+  <tr>
+    <th>Key</th>
+    <th>Action</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td><kbd>↑↓←→</kbd></td>
+    <td>Move the camera.</td>
+  </tr>
+  <tr>
+    <td><kbd>+</kbd>/<kbd>-</kbd></td>
+    <td>Zoom in/zoom out.</td>
+  </tr>
+  <tr>
+    <td><kbd>␣</kbd></td>
+    <td>Pause/unpause the simulation.</td>
+  </tr>
+  <tr>
+    <td>Left click</td>
+    <td>Spawn entity.</td>
+  </tr>
+  <tr>
+    <td>Right click</td>
+    <td>Despawn entity.</td>
+  </tr>
+</tbody>
+</table>
+
+
 # [License](LICENSE)
 [...]
 
