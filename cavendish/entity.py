@@ -82,5 +82,5 @@ class Entity(object):
                 scaling
             ),
             radius=(self.mass + 1)*scaling,
-            width=int(scaling)
+            width=(s if (s := int(scaling)) != 0 else 1)
         )
